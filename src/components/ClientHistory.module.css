@@ -22,6 +22,26 @@ h2 {
   margin: 2rem;
   gap: 5rem;
 }
+.clientInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.clientInfo button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #bfc9b0;
+  color: #2a2630;
+}
 
 .back {
   font-size: 2rem;
@@ -29,20 +49,20 @@ h2 {
   top: 2%;
   left: 2%;
 }
-.list{
-    background-color: #D3DAC8;
-    border-radius: 10px;
-    margin: 12px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: solid 2px white;
+.list {
+  background-color: #d3dac8;
+  border-radius: 10px;
+  margin: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 2px white;
 }
-.list h4{
-    font-weight: 600;
-    background-color: #CAD2BD;
-    padding: 10px;
-    border-radius: 12px;
-    text-align: center;
+.list h4 {
+  font-weight: 600;
+  background-color: #cad2bd;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
 }

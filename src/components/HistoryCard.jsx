@@ -12,7 +12,7 @@ function HistoryCard({ client }) {
       <div className={classes.mainInfo}>
         <p>
           {client.date}
-          <CiCalendar style={{ margin: " 0px 4px", fontSize: "2rem" }} />
+          <CiCalendar style={{ margin: " 0px 4px", fontSize: "1.5rem" }} />
         </p>
         <p>{client.price}€</p>
         <p> {client.tips}€</p>

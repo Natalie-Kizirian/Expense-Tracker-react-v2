@@ -1,5 +1,7 @@
 import classes from "./ClientHistory.module.css";
 import HistoryCard from "./HistoryCard";
+import { FaPlus } from "react-icons/fa6";
+
 import { IoIosArrowBack } from "react-icons/io";
 
 function ClientHistory({ client, onCloseClient }) {
@@ -9,12 +11,16 @@ function ClientHistory({ client, onCloseClient }) {
 
       <div className={classes.header}>
         <img src="/logo.png" alt="" className={classes.logo} />
-        <h2>History of {client.name}</h2>
+        <div className={classes.clientInfo}>
+          <h2>History of {client.name}</h2>
+          <button>
+            <FaPlus size={12} />
+            Add
+          </button>
+        </div>
       </div>
       <li className={classes.list}>
         <h4> Total income: {client.total}€</h4>
-        <HistoryCard client={client} />
-        <HistoryCard client={client} />
         <HistoryCard client={client} />
       </li>
     </>
