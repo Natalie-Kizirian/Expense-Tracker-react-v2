@@ -1,43 +1,38 @@
-import ClientPage from "./components/ClientPage";
-import ClientHistory from "./components/ClientHistory";
 import { useState } from "react";
+import Homepage from "./components/Pages/Homepage";
+import TransactionsPage from "./components/Pages/TransactionsPage";
+import TransactionForm from "./components/Forms/TransactionForm";
+import NavBar from "./components/UI/NavBar";
 function App() {
-  const [selectedClient, setSelectedClient] = useState(null);
-  const [clients, setClients] = useState([]);
+  /* States */
+  const [modalisVisible, setModalVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState("expense");
 
-  function addClientsHandler(clientData) {
-    // If the new state depends on the old state I should write it like this to update the state
-    setClients((existingClients) => [clientData, ...existingClients]);
-    /* setClients([clientData , ...clients])*/
-  }
-
-  function editClientHandler(updatedClient) {
-    setClients((existingClients) =>
-      existingClients.map((client) =>
-        client.id === updatedClient.id ? updatedClient : client,
-      ),
-    );
-    setSelectedClient(updatedClient);
-  }
-
+  const [activePage, setActivePage] = useState("home");
   return (
-    <>
-      {!selectedClient && (
-        <ClientPage
-          onSelectClient={setSelectedClient}
-          clients={clients}
-          onAddClient={addClientsHandler}
+    <div className="flex min-h-screen flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-3 py-5 lg:items-center">
+      {/* HOMEPAGE */}
+      {activePage === "home" && (
+        <Homepage
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
         />
       )}
 
-      {selectedClient && (
-        <ClientHistory
-          client={selectedClient}
-          onCloseClient={() => setSelectedClient(null)}
-          onEditClient={editClientHandler}
-        />
+      {/* TRANSACTIONS PAGE */}
+      {activePage === "transactions" && <TransactionsPage />}
+
+      {modalisVisible && (
+        <TransactionForm onClose={() => setModalVisible(false)} />
       )}
-    </>
+
+      {/* Navigation Bar */}
+      <NavBar
+        showHomePage={() => setActivePage("home")}
+        showTransactionsPage={() => setActivePage("transactions")}
+        onShowModal={() => setModalVisible(true)}
+      />
+    </div>
   );
 }
 

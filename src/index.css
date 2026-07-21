@@ -1,16 +1,20 @@
-:root {
-  min-height: 100vh;
-  box-sizing: border-box;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+@import "tailwindcss";
 
-  background-image: radial-gradient(ellipse at top left, #9dac85, #859271);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-button{
-  cursor: pointer;
+@theme {
+  --shadow-3xl: 0 4px 2px rgba(0, 0, 0, 0.25);
+  --shadow-2xl: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-inset-md: inset 0 2px 3px rgba(0, 0, 0, 0.25);
+  --shadow-inset-sm: inset 0 2px 2px rgba(0, 0, 0, 0.15);
+  --shadow-inset-white: inset -3px 3px 12px rgba(255, 255, 255, 0.65);
+  --shadow-inset-black: inset 0px 4px 2px rgba(0, 0, 0, 0.2);
+  --color-white: #efeffb;
+  --color-black: #11133b;
+  --color-primary: #21268b;
+  --color-secondary: #6f74dd;
+  --color-muted: #c4cbf0;
+  --color-background: #e0e1f7;
+  --color-active: #344ab7;
+  --color-gray: #6b6d95;
+  --color-green: #00c94c;
+  --color-red: #ff4f4f;
 }
