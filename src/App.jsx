@@ -5,10 +5,18 @@ import TransactionForm from "./components/Forms/TransactionForm";
 import NavBar from "./components/UI/NavBar";
 function App() {
   /* States */
+  const [transactions, setTransactions] = useState([]);
   const [modalisVisible, setModalVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState("expense");
 
   const [activePage, setActivePage] = useState("home");
+  const [activeTab, setActiveTab] = useState("expense");
+
+  // Add Transaction
+  function addTransactionHandler(transactionData) {
+    setTransactions([...transactions, transactionData]);
+    console.log(transactionData)
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-3 py-5 lg:items-center">
       {/* HOMEPAGE */}
@@ -16,6 +24,7 @@ function App() {
         <Homepage
           activeTab={activeTab}
           onTabChange={setActiveTab}
+          transactions={transactions}
         />
       )}
 
@@ -23,7 +32,10 @@ function App() {
       {activePage === "transactions" && <TransactionsPage />}
 
       {modalisVisible && (
-        <TransactionForm onClose={() => setModalVisible(false)} />
+        <TransactionForm
+          onClose={() => setModalVisible(false)}
+          onAddTransaction={addTransactionHandler}
+        />
       )}
 
       {/* Navigation Bar */}
