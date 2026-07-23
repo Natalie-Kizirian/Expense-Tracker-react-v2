@@ -14,7 +14,7 @@ function App() {
   // Add Transaction
   function addTransactionHandler(transactionData) {
     setTransactions([...transactions, transactionData]);
-    console.log(transactionData)
+    console.log(transactionData);
   }
 
   return (
@@ -35,6 +35,7 @@ function App() {
         <TransactionForm
           onClose={() => setModalVisible(false)}
           onAddTransaction={addTransactionHandler}
+          defaultType={activeTab}
         />
       )}
 

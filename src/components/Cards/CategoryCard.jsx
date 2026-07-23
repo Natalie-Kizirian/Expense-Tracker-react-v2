@@ -1,4 +1,5 @@
-function CategoryCard({transactions}) {
+import { categoryColors, categoryIcons } from "../../config/categoryConfig";
+function CategoryCard({ transactions }) {
   return (
     <div className="border rounded-2xl p-2">
       <div className="flex items-center justify-between ">
@@ -7,6 +8,7 @@ function CategoryCard({transactions}) {
         <p className="rounded-3xl">Icon</p>
       </div>
       <h1>{transactions.category}</h1>
+      <p>{transactions.type}</p>
     </div>
   );
 }
