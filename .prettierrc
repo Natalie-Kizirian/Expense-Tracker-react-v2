@@ -1,5 +1,6 @@
 {
   "printWidth": 80,
   "singleAttributePerLine": true,
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

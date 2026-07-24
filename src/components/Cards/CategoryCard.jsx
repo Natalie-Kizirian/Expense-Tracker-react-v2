@@ -1,14 +1,17 @@
 import { categoryColors, categoryIcons } from "../../config/categoryConfig";
 function CategoryCard({ transactions }) {
+  const cardIcon = categoryIcons[transactions.category];
+  const cardColor = categoryColors[transactions.category];
   return (
-    <div className="border rounded-2xl p-2">
-      <div className="flex items-center justify-between ">
-        <p>{transactions.amount}$</p>
+    <div
+      className={`shadow-3xl flex w-full cursor-pointer flex-col gap-2 rounded-xl border border-white p-3 ${cardColor} `}
+    >
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-medium md:text-lg">{transactions.amount}$</p>
 
-        <p className="rounded-3xl">Icon</p>
+        <p className="text-xl md:text-2xl">{cardIcon}</p>
       </div>
-      <h1>{transactions.category}</h1>
-      <p>{transactions.type}</p>
+      <h1 className="text-sm capitalize md:text-lg">{transactions.category}</h1>
     </div>
   );
 }

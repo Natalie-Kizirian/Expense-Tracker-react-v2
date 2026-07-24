@@ -14,13 +14,13 @@ function Homepage({ activeTab, onTabChange, transactions }) {
       return category;
     }, []);
   return (
-    <div>
+    <div className="flex flex-col gap-5 lg:w-1/2">
       <ToggleTabs
         activeTab={activeTab}
         onTabChange={onTabChange}
       />
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid min-w-0 grid-cols-2 gap-2 min-[355px]:grid-cols-3 sm:gap-4">
         {filteredCategories.map((t) => (
           <CategoryCard
             key={t.category}
