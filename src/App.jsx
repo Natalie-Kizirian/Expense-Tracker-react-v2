@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-3 py-5 lg:items-center">
+    <div className="flex min-h-screen lg:text-lg flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-3 py-5 lg:items-center">
       {/* HOMEPAGE */}
       {activePage === "home" && (
         <Homepage
@@ -29,7 +29,7 @@ function App() {
       )}
 
       {/* TRANSACTIONS PAGE */}
-      {activePage === "transactions" && <TransactionsPage />}
+      {activePage === "transactions" && <TransactionsPage transactions={transactions} />}
 
       {modalisVisible && (
         <TransactionForm
@@ -44,6 +44,7 @@ function App() {
         showHomePage={() => setActivePage("home")}
         showTransactionsPage={() => setActivePage("transactions")}
         onShowModal={() => setModalVisible(true)}
+        activeMenu={activePage}
       />
     </div>
   );
