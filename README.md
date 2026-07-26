@@ -13,6 +13,7 @@ https://natalie-kizirian.github.io/Client-Tracker-v2/
 
 ## ✨ Key Features
 * **Client Management:** Easily add, edit, and delete client profiles.
+* **Financial Tracking:** Track revenue from each client to monitor your earnings.
 * **Persistent Data:** All data is saved locally using Browser LocalStorage.
 * **Responsive Layout:** Works smoothly on both mobile and desktop devices.
 * **Clean UI:** An intuitive interface for quick data entry and navigation.
