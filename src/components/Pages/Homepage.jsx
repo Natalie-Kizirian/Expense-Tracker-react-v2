@@ -1,7 +1,7 @@
 import CategoryCard from "../Cards/CategoryCard";
 import ToggleTabs from "../UI/ToggleTabs";
 
-function Homepage({ activeTab, onTabChange, transactions }) {
+function Homepage({ activeTab, onTabChange, transactions, openForm }) {
   const filteredCategories = transactions
     .filter((t) => t.type === activeTab)
     .reduce((category, t) => {
@@ -23,6 +23,7 @@ function Homepage({ activeTab, onTabChange, transactions }) {
       <div className="grid min-w-0 grid-cols-2 gap-2 min-[355px]:grid-cols-3 sm:gap-4">
         {filteredCategories.map((t) => (
           <CategoryCard
+            openForm={openForm}
             key={t.category}
             transactions={t}
           />

@@ -6,7 +6,7 @@ function TransactionCard({ transaction, openForm }) {
   return (
     <div
       onClick={() => openForm(transaction)}
-      className="bg-background flex cursor-pointer items-center justify-between rounded-xl border border-white p-2 shadow-2xl"
+      className="bg-background flex cursor-pointer items-center justify-between overflow-y-scroll rounded-xl border border-white p-2 shadow-2xl"
     >
       <div className="flex items-center gap-1">
         <p

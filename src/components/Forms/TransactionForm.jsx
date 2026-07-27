@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoReturnUpBack } from "react-icons/io5";
-import {
-  expenseCategories,
-  incomeCategories,
-} from "../../config/categoryConfig";
-import { categoryColors } from "../../config/categoryConfig";
+// prettier-ignore
+import {expenseCategories, incomeCategories, categoryColors} from "../../config/categoryConfig";
+
 import ToggleTabs from "../UI/ToggleTabs";
 function TransactionForm({
   onClose,
   onAddTransaction,
   defaultType,
   selectedTransaction,
+  selectedCategory,
 }) {
   /* states */
   const [enteredAmount, setAmount] = useState(
@@ -19,20 +18,22 @@ function TransactionForm({
   const [enteredType, setType] = useState(
     selectedTransaction?.type || defaultType,
   );
+  const categoryType =
+    enteredType === "expense" ? expenseCategories : incomeCategories;
+
   const [enteredDate, setDate] = useState(
     selectedTransaction?.date || new Date().toISOString().split("T")[0],
   );
   const [enteredCategory, setCategory] = useState(
-    selectedTransaction?.category || expenseCategories[0],
+    selectedTransaction?.category || selectedCategory || categoryType[0],
   );
 
-  const categoryType =
-    enteredType === "expense" ? expenseCategories : incomeCategories;
-  useEffect(() => {
-    if (!selectedTransaction) {
-      setCategory(categoryType[0]);
-    }
-  }, [enteredType]);
+  function handleTypeChange(type) {
+    setType(type);
+    setCategory(
+      type === "expense" ? expenseCategories[0] : incomeCategories[0],
+    );
+  }
 
   const cardColor = categoryColors[enteredCategory];
   // SUBMIT FORM HANDLER
@@ -85,7 +86,7 @@ function TransactionForm({
         <div className="flex p-3">
           <ToggleTabs
             activeTab={enteredType}
-            onTabChange={setType}
+            onTabChange={handleTypeChange}
           />
           <button
             className="cursor-pointer px-3 text-2xl"

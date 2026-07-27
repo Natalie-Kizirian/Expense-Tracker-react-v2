@@ -1,13 +1,13 @@
 import TransactionCard from "../Cards/TransactionCard";
 import { groupByDate, formatDate } from "../../utils/transactionsUtils";
 
-function TransactionsPage({ transactions , openForm }) {
+function TransactionsPage({ transactions, openForm }) {
   const transactionsByDate = groupByDate(transactions);
   const sortedDates = Object.keys(transactionsByDate).sort(
     (a, b) => new Date(b) - new Date(a),
   );
   return (
-    <div className="mb-22 lg:w-1/2">
+    <div className="mb-42 lg:mb-6 lg:w-1/2">
       {sortedDates.map((date) => (
         <div
           key={date}

@@ -10,7 +10,9 @@ function App() {
 
   const [activePage, setActivePage] = useState("home");
   const [activeTab, setActiveTab] = useState("expense");
+
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   // Add - Edit Transaction
   function addTransactionHandler(transactionData) {
@@ -25,13 +27,18 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-4 lg:items-center lg:text-lg">
+    <div className="flex h-screen flex-col overflow-y-auto bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-4 lg:items-center lg:text-lg">
       {/* HOMEPAGE */}
       {activePage === "home" && (
         <Homepage
           activeTab={activeTab}
           onTabChange={setActiveTab}
           transactions={transactions}
+          openForm={(category) => {
+            // console.log(category);
+            setSelectedCategory(category);
+            setModalVisible(true);
+          }}
         />
       )}
 
@@ -41,6 +48,7 @@ function App() {
           transactions={transactions}
           openForm={(transaction) => {
             setSelectedTransaction(transaction);
+            setSelectedCategory(null);
             setModalVisible(true);
           }}
         />
@@ -52,6 +60,7 @@ function App() {
           onAddTransaction={addTransactionHandler}
           defaultType={activeTab}
           selectedTransaction={selectedTransaction}
+          selectedCategory={selectedCategory}
         />
       )}
 
@@ -60,7 +69,9 @@ function App() {
         showHomePage={() => setActivePage("home")}
         showTransactionsPage={() => setActivePage("transactions")}
         onShowModal={() => {
+          //reseting modal content
           setSelectedTransaction(null);
+          setSelectedCategory(null);
           setModalVisible(true);
         }}
         activeMenu={activePage}

@@ -1,9 +1,11 @@
 import { categoryColors, categoryIcons } from "../../config/categoryConfig";
-function CategoryCard({ transactions }) {
+
+function CategoryCard({ transactions, openForm }) {
   const cardIcon = categoryIcons[transactions.category];
   const cardColor = categoryColors[transactions.category];
   return (
     <div
+      onClick={() => openForm(transactions.category)}
       className={`shadow-3xl flex w-full cursor-pointer flex-col gap-2 rounded-xl border border-white p-3 ${cardColor} `}
     >
       <div className="flex items-center justify-between">
