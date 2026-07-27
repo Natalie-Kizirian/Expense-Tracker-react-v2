@@ -6,19 +6,32 @@ import {
 } from "../../config/categoryConfig";
 import { categoryColors } from "../../config/categoryConfig";
 import ToggleTabs from "../UI/ToggleTabs";
-function TransactionForm({ onClose, onAddTransaction, defaultType }) {
+function TransactionForm({
+  onClose,
+  onAddTransaction,
+  defaultType,
+  selectedTransaction,
+}) {
   /* states */
-  const [enteredAmount, setAmount] = useState("");
-  const [enteredType, setType] = useState(defaultType);
-  const [enteredDate, setDate] = useState(
-    new Date().toISOString().split("T")[0],
+  const [enteredAmount, setAmount] = useState(
+    selectedTransaction?.amount?.toString() || "",
   );
-  const [enteredCategory, setCategory] = useState(expenseCategories[0]);
+  const [enteredType, setType] = useState(
+    selectedTransaction?.type || defaultType,
+  );
+  const [enteredDate, setDate] = useState(
+    selectedTransaction?.date || new Date().toISOString().split("T")[0],
+  );
+  const [enteredCategory, setCategory] = useState(
+    selectedTransaction?.category || expenseCategories[0],
+  );
 
   const categoryType =
     enteredType === "expense" ? expenseCategories : incomeCategories;
   useEffect(() => {
-    setCategory(categoryType[0]);
+    if (!selectedTransaction) {
+      setCategory(categoryType[0]);
+    }
   }, [enteredType]);
 
   const cardColor = categoryColors[enteredCategory];
@@ -34,7 +47,7 @@ function TransactionForm({ onClose, onAddTransaction, defaultType }) {
 
     const transactionData = {
       //id: crypto.randomUUID(),
-      id: Math.random().toString(36).substring(2),
+      id: selectedTransaction?.id || Math.random().toString(36).substring(2),
       amount: formattedAmount,
       date: enteredDate,
       category: enteredCategory,
@@ -104,12 +117,14 @@ function TransactionForm({ onClose, onAddTransaction, defaultType }) {
                 className={`cursor-pointer focus:outline-none`}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                {categoryType.map((c) =>
-                  // prettier-ignore
-                  <option value={c} key={c}>
-                  {c}
-                </option>,
-                )}
+                {categoryType.map((c) => (
+                  <option
+                    value={c}
+                    key={c}
+                  >
+                    {c}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -132,20 +147,20 @@ function TransactionForm({ onClose, onAddTransaction, defaultType }) {
             {/* Date */}
 
             <div className="grid w-full grid-cols-2 justify-between gap-2 text-center">
-              <div className="shadow-3xl cursor-pointer rounded-xl bg-white py-3 lg:p-3">
+              <div className="shadow-3xl active:bg-background cursor-pointer rounded-xl bg-white py-3 lg:p-3">
                 <input
                   type="date"
                   className="cursor-pointer focus:outline-none"
                   value={enteredDate}
                   onChange={(e) => setDate(e.target.value)}
-                />{" "}
+                />
               </div>
 
               <button
                 type="submit"
-                className="shadow-3xl bg-primary w-full cursor-pointer rounded-xl py-3 text-white"
+                className="shadow-3xl bg-active active:bg-primary w-full cursor-pointer rounded-xl py-3 text-white"
               >
-                Add
+                {selectedTransaction ? "Save" : "Add"}
               </button>
             </div>
           </div>

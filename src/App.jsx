@@ -10,15 +10,22 @@ function App() {
 
   const [activePage, setActivePage] = useState("home");
   const [activeTab, setActiveTab] = useState("expense");
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  // Add Transaction
+  // Add - Edit Transaction
   function addTransactionHandler(transactionData) {
-    setTransactions([...transactions, transactionData]);
-    console.log(transactionData);
+    if (selectedTransaction) {
+      setTransactions([
+        ...transactions.filter((t) => t.id !== transactionData.id),
+        transactionData,
+      ]);
+    } else {
+      setTransactions([...transactions, transactionData]);
+    }
   }
 
   return (
-    <div className="flex min-h-screen p-4 lg:text-lg flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7]  lg:items-center">
+    <div className="flex min-h-screen flex-col bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-4 lg:items-center lg:text-lg">
       {/* HOMEPAGE */}
       {activePage === "home" && (
         <Homepage
@@ -29,13 +36,22 @@ function App() {
       )}
 
       {/* TRANSACTIONS PAGE */}
-      {activePage === "transactions" && <TransactionsPage transactions={transactions} />}
+      {activePage === "transactions" && (
+        <TransactionsPage
+          transactions={transactions}
+          openForm={(transaction) => {
+            setSelectedTransaction(transaction);
+            setModalVisible(true);
+          }}
+        />
+      )}
 
       {modalisVisible && (
         <TransactionForm
           onClose={() => setModalVisible(false)}
           onAddTransaction={addTransactionHandler}
           defaultType={activeTab}
+          selectedTransaction={selectedTransaction}
         />
       )}
 
@@ -43,7 +59,10 @@ function App() {
       <NavBar
         showHomePage={() => setActivePage("home")}
         showTransactionsPage={() => setActivePage("transactions")}
-        onShowModal={() => setModalVisible(true)}
+        onShowModal={() => {
+          setSelectedTransaction(null);
+          setModalVisible(true);
+        }}
         activeMenu={activePage}
       />
     </div>

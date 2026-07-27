@@ -1,10 +1,13 @@
 import { categoryColors, categoryIcons } from "../../config/categoryConfig";
 
-function TransactionCard({ transaction }) {
+function TransactionCard({ transaction, openForm }) {
   const cardIcon = categoryIcons[transaction.category];
   const cardColor = categoryColors[transaction.category];
   return (
-    <div className="bg-background flex cursor-pointer items-center justify-between rounded-xl border border-white p-2 shadow-2xl">
+    <div
+      onClick={() => openForm(transaction)}
+      className="bg-background flex cursor-pointer items-center justify-between rounded-xl border border-white p-2 shadow-2xl"
+    >
       <div className="flex items-center gap-1">
         <p
           className={`border-gray rounded-xl border p-3 text-2xl ${cardColor} `}
