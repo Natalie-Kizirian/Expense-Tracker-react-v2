@@ -6,4 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "/Expense-Tracker-react-v2/",
+  server: {
+    host: true, 
+  },
 });

@@ -18,3 +18,8 @@
   --color-green: #00c94c;
   --color-red: #ff4f4f;
 }
+body {
+  max-height: 80vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
