@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Homepage from "./components/Pages/Homepage";
 import TransactionsPage from "./components/Pages/TransactionsPage";
 import TransactionForm from "./components/Forms/TransactionForm";
 import NavBar from "./components/UI/NavBar";
 function App() {
   /* States */
-  const [transactions, setTransactions] = useState([]);
-  const [modalisVisible, setModalVisible] = useState(false);
+  const [transactions, setTransactions] = useState(() => {
+    const saved = localStorage.getItem("transaction");
+    return saved ? JSON.parse(saved) : [];
+  });
 
+  useEffect(() => {
+    localStorage.setItem("transaction", JSON.stringify(transactions));
+  }, [transactions]);
+
+  const [modalisVisible, setModalVisible] = useState(false);
   const [activePage, setActivePage] = useState("home");
   const [activeTab, setActiveTab] = useState("expense");
 
@@ -25,6 +32,10 @@ function App() {
       setTransactions([...transactions, transactionData]);
     }
   }
+  //Delete Handler
+  const handleDelete = (id) => {
+    setTransactions((prev) => prev.filter((t) => t.id !== id));
+  };
 
   return (
     <div className="flex h-screen flex-col overflow-y-auto bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-4 lg:items-center lg:text-lg">
@@ -35,9 +46,9 @@ function App() {
           onTabChange={setActiveTab}
           transactions={transactions}
           openForm={(category) => {
-            // console.log(category);
-            setSelectedCategory(category);
             setModalVisible(true);
+            setSelectedCategory(category);
+            setSelectedTransaction(null);
           }}
         />
       )}
@@ -47,10 +58,11 @@ function App() {
         <TransactionsPage
           transactions={transactions}
           openForm={(transaction) => {
+            setModalVisible(true);
             setSelectedTransaction(transaction);
             setSelectedCategory(null);
-            setModalVisible(true);
           }}
+          onDelete={handleDelete}
         />
       )}
 

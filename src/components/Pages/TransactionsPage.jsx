@@ -1,7 +1,7 @@
 import TransactionCard from "../Cards/TransactionCard";
 import { groupByDate, formatDate } from "../../utils/transactionsUtils";
 
-function TransactionsPage({ transactions, openForm }) {
+function TransactionsPage({ transactions, openForm, onDelete }) {
   const transactionsByDate = groupByDate(transactions);
   const sortedDates = Object.keys(transactionsByDate).sort(
     (a, b) => new Date(b) - new Date(a),
@@ -20,6 +20,7 @@ function TransactionsPage({ transactions, openForm }) {
               key={t.id}
               transaction={t}
               openForm={openForm}
+              onDelete={onDelete}
             />
           ))}
         </div>
