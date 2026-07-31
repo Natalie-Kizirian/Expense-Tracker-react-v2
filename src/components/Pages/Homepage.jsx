@@ -1,18 +1,10 @@
 import CategoryCard from "../Cards/CategoryCard";
 import ToggleTabs from "../UI/ToggleTabs";
+import { groupByCategory } from "../../utils/transactionsUtils";
 
 function Homepage({ activeTab, onTabChange, transactions, openForm }) {
-  const filteredCategories = transactions
-    .filter((t) => t.type === activeTab)
-    .reduce((category, t) => {
-      const existing = category.find((c) => c.category === t.category);
-      if (existing) {
-        existing.amount += t.amount;
-      } else {
-        category.push({ category: t.category, type: t.type, amount: t.amount });
-      }
-      return category;
-    }, []);
+  const filteredCategories = groupByCategory(transactions, activeTab);
+
   return (
     <div className="flex flex-col gap-5 lg:w-1/2">
       <ToggleTabs

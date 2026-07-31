@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { calculateBalance } from "./utils/transactionsUtils";
+import Header from "./components/UI/Header";
 import Homepage from "./components/Pages/Homepage";
 import TransactionsPage from "./components/Pages/TransactionsPage";
 import TransactionForm from "./components/Forms/TransactionForm";
@@ -36,9 +38,11 @@ function App() {
   const handleDelete = (id) => {
     setTransactions((prev) => prev.filter((t) => t.id !== id));
   };
+  const balance = calculateBalance(transactions);
 
   return (
     <div className="flex h-screen flex-col overflow-y-auto bg-linear-to-bl from-[#EFEFFB] to-[#D0D1F7] p-4 lg:items-center lg:text-lg">
+      <Header balance={balance} />
       {/* HOMEPAGE */}
       {activePage === "home" && (
         <Homepage
