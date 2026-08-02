@@ -6,7 +6,7 @@ function ToggleTabs({ activeTab, onTabChange, options = ["expense", "income"] })
           <h3
             key={o}
             onClick={() => onTabChange(o)}
-            className={`w-full cursor-pointer rounded-xl px-5 py-1 text-center capitalize transition-all duration-300 lg:w-1/2 ${activeTab === o ? " bg-active text-white" : "text-black"}`}
+            className={`w-full cursor-pointer rounded-xl  px-5 py-1 text-center capitalize transition-all duration-300 lg:w-1/2 ${activeTab === o ? " bg-active text-white shadow-2xl" : "text-black"}`}
           >
             {o}
           </h3>

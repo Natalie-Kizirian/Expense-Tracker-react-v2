@@ -22,4 +22,53 @@ html,
 body {
   height: 100vh;
   overflow: hidden;
+  list-style: none;
+}
+
+/* PRIMARY BUTTON */
+.primary-button {
+  background-color: var(--color-primary);
+  cursor: pointer;
+  border-radius: 0.75rem;
+  padding: 12px 0px;
+  color: var(--color-white);
+  box-shadow: var(--shadow-3xl);
+}
+.primary-button:hover {
+  background-color: var(--color-active);
+}
+.primary-button:active {
+  background-color: var(--color-active);
+}
+
+/* SECONDARY BUTTON */
+.secondary-button {
+  background-color: var(--color-secondary);
+  cursor: pointer;
+}
+
+/* WHITE BUTTON */
+.white-button {
+  background-color: var(--color-white);
+  cursor: pointer;
+  border-radius: 0.75rem;
+  padding: 12px 0px;
+  color: var(--color-black);
+  box-shadow: var(--shadow-3xl);
+}
+.white-button:active {
+  background-color: var(--color-background);
+}
+
+.transaction-card-styles {
+  background-color: var(--color-background);
+  border: solid 1px var(--color-muted);
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  box-shadow: var(--shadow-2xl);
 }

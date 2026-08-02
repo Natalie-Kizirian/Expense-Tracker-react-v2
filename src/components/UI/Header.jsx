@@ -1,6 +1,6 @@
 function Header({ balance }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between lg:w-1/2">
       <div>Hello User</div>
 
       <div>

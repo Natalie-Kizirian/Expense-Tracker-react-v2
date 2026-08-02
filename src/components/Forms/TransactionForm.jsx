@@ -136,7 +136,7 @@ function TransactionForm({
                 <button
                   key={num}
                   type={"button"}
-                  className={`shadow-3xl active:bg-background w-full cursor-pointer rounded-xl bg-white py-3 font-semibold lg:p-3`}
+                  className={`white-button font-semibold`}
                   // prettier-ignore
                   onClick={() => {handleNumpadClick(num);}}
                 >
@@ -148,7 +148,7 @@ function TransactionForm({
             {/* Date */}
 
             <div className="grid w-full grid-cols-2 justify-between gap-2 text-center">
-              <div className="shadow-3xl active:bg-background cursor-pointer rounded-xl bg-white py-3 lg:p-3">
+              <div className="white-button">
                 <input
                   type="date"
                   className="cursor-pointer focus:outline-none"
@@ -159,7 +159,8 @@ function TransactionForm({
 
               <button
                 type="submit"
-                className="shadow-3xl bg-active active:bg-primary w-full cursor-pointer rounded-xl py-3 text-white"
+                /*   className="shadow-3xl bg-active active:bg-primary w-full cursor-pointer rounded-xl py-3 text-white" */
+                className={`primary-button`}
               >
                 {selectedTransaction ? "Save" : "Add"}
               </button>

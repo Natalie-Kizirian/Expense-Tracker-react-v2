@@ -1,11 +1,15 @@
 import { categoryColors, categoryIcons } from "../../config/categoryConfig";
 import { useSwipeable } from "react-swipeable";
+import { FaRegTrashAlt } from "react-icons/fa";
+import DeletePopup from "../UI/DeletePopup";
+
 import { useState } from "react";
 function TransactionCard({ transaction, openForm, onDelete }) {
   const cardIcon = categoryIcons[transaction.category];
   const cardColor = categoryColors[transaction.category];
 
   const [isRevealed, setIsRevealed] = useState(false);
+  const [deleteAction, setDeleteAction] = useState(null);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setIsRevealed(true),
@@ -20,11 +24,25 @@ function TransactionCard({ transaction, openForm, onDelete }) {
       openForm(transaction);
     }
   };
+  function handelDeleteClick(e) {
+    e.stopPropagation();
+    setDeleteAction(() => () => onDelete(transaction.id));
+  }
   return (
-    <div className="relative overflow-hidden rounded-xl">
+    <div className="relative overflow-hidden rounded-xl shadow-2xl">
+      {deleteAction && (
+        <DeletePopup
+          onCancel={() => setDeleteAction(null)}
+          onConfirm={() => {
+            deleteAction();
+            setDeleteAction(null);
+          }}
+        />
+      )}{" "}
+      {/* Delete Mobile Screen */}
       <div className="bg-red shadow-inset-black absolute inset-y-0 right-0 flex items-center px-4">
         <button
-          onClick={() => onDelete(transaction.id)}
+          onClick={handelDeleteClick}
           className="font-semibold text-white"
         >
           Delete
@@ -33,7 +51,7 @@ function TransactionCard({ transaction, openForm, onDelete }) {
       <div
         {...handlers}
         onClick={handleCardClick}
-        className={`bg-background border-muted flex cursor-pointer items-center justify-between overflow-y-scroll rounded-xl border p-2 transition-transform duration-200 ${
+        className={`transaction-card-styles transition-transform duration-200 ${
           isRevealed ? "-translate-x-20 " : "translate-x-0 "
         }`}
       >
@@ -48,12 +66,23 @@ function TransactionCard({ transaction, openForm, onDelete }) {
             {/*<p className="text-gray">Note</p>*/}
           </div>
         </div>
-        <p
-          className={`font-semibold ${transaction.type === "expense" ? "text-red" : "text-green"} `}
-        >
-          {transaction.type === "expense" ? "-" : "+"}
-          {transaction.amount}€
-        </p>
+
+        <div className="flex items-center gap-1">
+          <p
+            className={`font-semibold ${transaction.type === "expense" ? "text-red" : "text-green"} `}
+          >
+            {transaction.type === "expense" ? "-" : "+"}
+            {transaction.amount}€
+          </p>
+
+          {/* Delete Large Screen*/}
+          <p
+            onClick={handelDeleteClick}
+            className="z-40 hidden rounded-lg p-2 hover:bg-white lg:block"
+          >
+            <FaRegTrashAlt />
+          </p>
+        </div>
       </div>
     </div>
   );
