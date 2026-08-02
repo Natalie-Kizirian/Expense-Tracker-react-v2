@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoReturnUpBack } from "react-icons/io5";
+import NotePopup from "./NotePopup";
 // prettier-ignore
 import {expenseCategories, incomeCategories, categoryColors} from "../../config/categoryConfig";
 
@@ -11,7 +12,7 @@ function TransactionForm({
   selectedTransaction,
   selectedCategory,
 }) {
-  /* states */
+  /* STATES */
   const [enteredAmount, setAmount] = useState(
     selectedTransaction?.amount?.toString() || "",
   );
@@ -27,6 +28,8 @@ function TransactionForm({
   const [enteredCategory, setCategory] = useState(
     selectedTransaction?.category || selectedCategory || categoryType[0],
   );
+  const [inputRevealed, setInputRevealed] = useState(false);
+  const [enteredNote, setNote] = useState(selectedTransaction?.note || "");
 
   function handleTypeChange(type) {
     setType(type);
@@ -53,6 +56,7 @@ function TransactionForm({
       date: enteredDate,
       category: enteredCategory,
       type: enteredType,
+      note: enteredNote,
     };
 
     onAddTransaction(transactionData);
@@ -99,15 +103,19 @@ function TransactionForm({
           onSubmit={submitHandler}
           className="flex h-full flex-col items-center gap-7 p-4"
         >
-          {/* Amount Input */}
-          <input
-            className="w-full border-none bg-transparent text-center text-2xl font-bold placeholder-black focus:outline-none"
-            readOnly
-            autoFocus
-            placeholder="0"
-            value={enteredAmount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
+          <div className="flec flex-col justify-center">
+            {/* Amount Input */}
+            <input
+              className="w-full border-none bg-transparent text-center text-2xl font-bold placeholder-black focus:outline-none"
+              readOnly
+              autoFocus
+              placeholder="0"
+              value={enteredAmount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <p className="text-center">{enteredNote}</p>
+          </div>
+
           <div className="flex w-full flex-col gap-2">
             {/* Select */}
             <div
@@ -129,6 +137,19 @@ function TransactionForm({
               </select>
             </div>
 
+            {/* NOTE POPUP */}
+            {inputRevealed && (
+              <div>
+                <NotePopup
+                  onClose={() => setInputRevealed(false)}
+                  onSubmitNote={(note) => {
+                    setNote(note);
+                    setInputRevealed(false);
+                  }}
+                  note={enteredNote}
+                />
+              </div>
+            )}
             {/* Custom numpad */}
 
             <div className="grid w-full grid-cols-3 gap-2">
@@ -147,7 +168,7 @@ function TransactionForm({
 
             {/* Date */}
 
-            <div className="grid w-full grid-cols-2 justify-between gap-2 text-center">
+            <div className="grid w-full grid-cols-3 justify-between gap-2 text-center">
               <div className="white-button">
                 <input
                   type="date"
@@ -158,8 +179,15 @@ function TransactionForm({
               </div>
 
               <button
+                onClick={() => setInputRevealed(true)}
+                className="white-button"
+                type="button"
+              >
+                Note
+              </button>
+
+              <button
                 type="submit"
-                /*   className="shadow-3xl bg-active active:bg-primary w-full cursor-pointer rounded-xl py-3 text-white" */
                 className={`primary-button`}
               >
                 {selectedTransaction ? "Save" : "Add"}

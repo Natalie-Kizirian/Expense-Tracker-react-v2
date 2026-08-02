@@ -9,7 +9,7 @@ function TransactionCard({ transaction, openForm, onDelete }) {
   const cardColor = categoryColors[transaction.category];
 
   const [isRevealed, setIsRevealed] = useState(false);
-  const [deleteAction, setDeleteAction] = useState(null);
+  const [deleteAction, setDeleteAction] = useState(false);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setIsRevealed(true),
@@ -26,16 +26,16 @@ function TransactionCard({ transaction, openForm, onDelete }) {
   };
   function handelDeleteClick(e) {
     e.stopPropagation();
-    setDeleteAction(() => () => onDelete(transaction.id));
+    setDeleteAction(true);
   }
   return (
     <div className="relative overflow-hidden rounded-xl shadow-2xl">
       {deleteAction && (
         <DeletePopup
-          onCancel={() => setDeleteAction(null)}
+          onCancel={() => setDeleteAction(false)}
           onConfirm={() => {
-            deleteAction();
-            setDeleteAction(null);
+            onDelete(transaction.id);
+            setDeleteAction(false);
           }}
         />
       )}{" "}
@@ -63,7 +63,8 @@ function TransactionCard({ transaction, openForm, onDelete }) {
           </p>
           <div className="flex flex-col">
             {transaction.category}
-            {/*<p className="text-gray">Note</p>*/}
+
+            <p>{transaction.note}</p>
           </div>
         </div>
 

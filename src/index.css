@@ -21,7 +21,7 @@
 html,
 body {
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   list-style: none;
 }
 
